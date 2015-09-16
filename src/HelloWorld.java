@@ -3,15 +3,17 @@ public class HelloWorld {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		long before = System.currentTimeMillis();
-		System.out.println("Hellow World");
+		Clock c = new Clock(2000);
 		try {
-		    Thread.sleep(100000);                 //1000 milliseconds is one second.
+			Thread.sleep(10);                 //1000 milliseconds is one second.
+			System.out.println("Over Target Time? " + c.overTargetTime());
+			
+			Thread.sleep(2000);                 //1000 milliseconds is one second.
+			System.out.println("Over Target Time? " + c.overTargetTime());
+			
 		} catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		}
-		long after = System.currentTimeMillis();
-		System.out.println("Time to print \"Hellow World\": " + (after - before));
 	}
 
 }
