@@ -1,3 +1,4 @@
+import java.util.*;
 
 public class ga {
 
@@ -30,6 +31,26 @@ public class ga {
 				System.out.print(possNums[i] + ", ");
 			}
 			System.out.print("\n");
+			
+			System.out.print("Testing Collections.sort \n");
+			ArrayList<NumberSequence> test = new ArrayList<NumberSequence>();
+			NumberSequence n1 = new NumberSequence(new int[]{1,2,3}, 10);
+			NumberSequence n2 = new NumberSequence(new int[]{1,7,3}, 10);
+			NumberSequence n3 = new NumberSequence(new int[]{7,3}, 10);
+			
+			test.add(n3);
+			test.add(n2);
+			test.add(n1);
+			
+			Collections.sort(test);
+			Collections.reverse(test);
+			for(int i = 0; i < test.size(); i++){
+				int[] seq = test.get(i).getSequence();
+				for(int j = 0; j < seq.length; j++){
+					System.out.print(seq[j] + ", ");
+				}
+				System.out.print("\n");
+			}
 			
 			//pz1.solvePuzzle();
 			System.out.println("Time: " + c.delta());
