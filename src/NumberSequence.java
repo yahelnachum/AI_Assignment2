@@ -7,7 +7,7 @@ public class NumberSequence {
 	private int[] sequence;
 	
 	/**
-	 * The number that the sequency is trying to add up to 
+	 * The number that the sequence is trying to add up to 
 	 */
 	private int goal;
 	

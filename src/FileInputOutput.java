@@ -1,30 +1,46 @@
 import java.io.*;
+import java.util.ArrayList;
 
 // skeleton of file input reader is taken from website in the next comment line
 // http://stackoverflow.com/questions/4716503/best-way-to-read-a-text-file-in-java
 public class FileInputOutput {
 	
 	
-	static void fileToPuzzleOne(String fileName) {
+	/**
+	 * Takes in a file name and parses it up for the genetic algorithm to 
+	 * @param fileName The file to pars the numbers from.
+	 */
+	/**
+	 * Takes in a file name and parses it up for the genetic algorithm to 
+	 * @param fileName The file to pars the numbers from.
+	 * @param obj The PuzzleOne object to set the goal and possible numbers array.
+	 */
+	static void fileToPuzzleOne(String fileName, PuzzleOne obj) {
 		try {
 			// open up file
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
 			try {
-				StringBuilder sb = new StringBuilder();
 				String line = br.readLine();
 				
+				if(line != null){
+					obj.setGoal(Integer.parseInt(line));
+					line = br.readLine();
+				}
 				
-				// build up string line by line
+				ArrayList<Integer> possibleNumbers = new ArrayList<Integer>();
+				
 				while (line != null) {
-					
-					sb.append(line);
+					possibleNumbers.add(Integer.parseInt(line));
 					line = br.readLine();
 				}
 
-				// change from string builder to string and take out tabs
-				String everything = sb.toString();
-				String noTabs = everything.replaceAll("\t", "");
-
+				int[] possNums = new int[possibleNumbers.size()];
+				for(int i = 0; i < possibleNumbers.size(); i++){
+					possNums[i] = possibleNumbers.get(i);
+				}
+				
+				obj.setPossibleNumbers(possNums);
+				
 				// close file
 				br.close();
 				
@@ -34,7 +50,6 @@ public class FileInputOutput {
 		} catch (Exception e) {
 
 		}
-		
 	}
 	
 	static void fileToPuzzleTwo(String fileName) {
