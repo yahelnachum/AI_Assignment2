@@ -2,6 +2,10 @@ import java.util.*;
 
 public class ga {
 
+	static final int PUZZLE_ONE = 1;
+	static final int PUZZLE_TWO = 2;
+	static final int PUZZLE_THREE = 3;
+	
 	public static void main(String[] args) {
 		Clock c = new Clock();
 		// convert arguments to usable forms
@@ -17,7 +21,7 @@ public class ga {
 		
 		// go to the puzzle wanted to solve
 		switch(puzzleToSolve){
-		case 1:
+		case PUZZLE_ONE:
 			// set the clock
 			PuzzleOne pz1 = new PuzzleOne(targetSeconds*1000);
 			
@@ -53,6 +57,7 @@ public class ga {
 			}
 			System.out.println("\nFitness: " + ns.getFitness());
 			System.out.println("\nGeneration: " + pz1.getGeneration());
+			
 			System.out.println("\nTime: " + c.delta());
 			break;
 		}
