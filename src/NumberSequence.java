@@ -31,7 +31,10 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	
 	/**
 	 * Gets the fitness of the sequence
-	 * If the sum is over the goal the fitness is 0
+	 * If the sum is over the goal the fitness 
+	 * is the (goal - sum) so that solutions that 
+	 * will recieve a score of 0 can still be 
+	 * compared for fitness,
 	 * otherwise the sum equals the fitness
 	 * @return An integer representing the fitness
 	 */
@@ -42,14 +45,22 @@ public class NumberSequence implements Comparable<NumberSequence> {
 			sum += sequence[i];
 		}
 		
-		// if sum is over goal then return 0
+		// if sum is over goal then return goal - sum
 		// otherwise return the sum
-		if(sum > goal)
-			return 0;
-		else
+		if(sum > goal){
+			return goal - sum;
+		}
+		else {
 			return sum;
+		}
 	}
 	
+	/**
+	 * Returns whether or not the sequence is valid given the possible numbers it can contain.
+	 * @param sequence The sequence that is being checked for validity
+	 * @param possibleNumbers The possible numbers that can show up in the sequence, but each number can only be used once.
+	 * @return	A boolean stating if the sequence is valid.
+	 */
 	public static boolean isSequenceValid(int[] sequence, int[] possibleNumbers){
 		
 		/* if sequence is bigger than possibleNumbers 

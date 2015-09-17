@@ -26,34 +26,34 @@ public class ga {
 			
 			System.out.println("Goal from file: " + pz1.getGoal());
 			
+			System.out.println("Possible numbers to use in sequence:");
 			int[] possNums = pz1.getPossibleNumbers();
 			for(int i = 0; i < possNums.length; i++){
 				System.out.print(possNums[i] + ", ");
 			}
 			System.out.print("\n");
 			
-			System.out.print("Testing Collections.sort \n");
-			ArrayList<NumberSequence> test = new ArrayList<NumberSequence>();
-			NumberSequence n1 = new NumberSequence(new int[]{1,2,3}, 10);
-			NumberSequence n2 = new NumberSequence(new int[]{1,7,3}, 10);
-			NumberSequence n3 = new NumberSequence(new int[]{7,3}, 10);
-			
-			test.add(n3);
-			test.add(n2);
-			test.add(n1);
-			
-			Collections.sort(test);
-			Collections.reverse(test);
-			for(int i = 0; i < test.size(); i++){
-				int[] seq = test.get(i).getSequence();
-				for(int j = 0; j < seq.length; j++){
-					System.out.print(seq[j] + ", ");
+			pz1.solvePuzzle();
+
+			System.out.print("Printing out randomly generated population\n");
+			ArrayList<NumberSequence> ans = pz1.getPopulation();
+			Collections.sort(ans);
+			for(int i = 0; i < ans.size(); i++){
+				System.out.print("NumberSequence[" + i + "] sum: " + ans.get(i).getFitness() + " sequence: ");
+				for(int j = 0; j < ans.get(i).getSequence().length; j++){
+					System.out.print(ans.get(i).getSequence()[j] + ", ");
 				}
-				System.out.print("\n");
+				System.out.print("Goal: " + pz1.getGoal() + "\n");
 			}
 			
-			//pz1.solvePuzzle();
-			System.out.println("Time: " + c.delta());
+			System.out.println("Most fit sequence:");
+			NumberSequence ns = pz1.mostFitInPopulation();
+			for(int i = 0; i < ns.getSequence().length; i++){
+				System.out.print(ns.getSequence()[i] + ", ");
+			}
+			System.out.println("\nFitness: " + ns.getFitness());
+			System.out.println("\nGeneration: " + pz1.getGeneration());
+			System.out.println("\nTime: " + c.delta());
 			break;
 		}
 	}
