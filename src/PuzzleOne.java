@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class PuzzleOne {
 
@@ -17,6 +18,11 @@ public class PuzzleOne {
 	 * A clock to stop the algorithm when the time is up
 	 */
 	private Clock clock;
+	
+	/**
+	 * The population of number sequences.
+	 */
+	private ArrayList<NumberSequence> population = new ArrayList<NumberSequence>();
 	
 	/**
 	 * Construct a PuzzleOne with a time limit

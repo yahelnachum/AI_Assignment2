@@ -1,5 +1,5 @@
 
-public class NumberSequence {
+public class NumberSequence implements Comparable<NumberSequence> {
 
 	/**
 	 * The integers that are part of the sequence.
@@ -86,5 +86,30 @@ public class NumberSequence {
 		
 		// if it got to here then it found all the sequence in the possibleNumbers
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * 
+	 * Compares two number sequences together based on their fitness functions.
+	 * If this has a higher fitness function then it returns 1,
+	 * else if this has a lower fitness function then it returns -1,
+	 * else it returns 0
+	 * 
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(NumberSequence ns1) {
+		// get the fitness functions of each sequence
+		int fitness0 = this.getFitness();
+		int fitness1 = ns1.getFitness();
+		
+		// compare and return the appropriate value
+		if(fitness0 > fitness1)
+			return 1;
+		else if(fitness0 < fitness1){
+			return -1;
+		}
+		
+		return 0;
 	}
 }
