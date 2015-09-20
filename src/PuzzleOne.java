@@ -4,7 +4,22 @@ import java.util.Random;
 
 public class PuzzleOne {
 
+	/**
+	 * The size of the population
+	 */
 	private final int POPULATION_SIZE = 100;
+	
+	/**
+	 * Percent of the population to act upon.
+	 * Actions include culling the population and reproducing for the next generation.
+	 */
+	private final double POPULATION_ACTION_PERCENT = 0.10;
+	
+	/**
+	 * Percent of the population to mutate.
+	 */
+	private final double POPULATION_MUTATION_PERCENT = 0.10;
+	
 	/**
 	 * Goal that the optimal sequence will 
 	 * try to sum up to and not go over
@@ -32,6 +47,9 @@ public class PuzzleOne {
 	 */
 	private int generation = 0;
 	
+	/**
+	 * Random number generator
+	 */
 	private Random randomGenerator = new Random();
 	
 	/**
@@ -85,11 +103,20 @@ public class PuzzleOne {
 			return;
 		}
 		
+		// initialize population with random sequences
 		initializePopulation();
 		
+		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
+			// remove a portion of the population
 			cullPopulation();
+			
+			// reproduce with the fittest more likely being parents
 			reproduce();
+			
+			// mutate a portion of the population
+			mutatePopulation();
+			
 			generation++;
 		}
 		
@@ -104,7 +131,7 @@ public class PuzzleOne {
 		// create the population
 		for(int i = 0; i < POPULATION_SIZE; i++){
 			// get a random length for the number sequence
-			int randArraySize = randomGenerator.nextInt(possibleNumbers.length);
+			int randArraySize = randomGenerator.nextInt(possibleNumbers.length-1)+1;
 			
 			int[] numSeq = new int[randArraySize];
 			for(int j = 0; j < randArraySize; j++){
@@ -120,7 +147,7 @@ public class PuzzleOne {
 	}
 	
 	/**
-	 * Cull the current population to the fittest genes
+	 * Cull the current population to the fitest genes
 	 */
 	public void cullPopulation(){
 		
@@ -128,7 +155,7 @@ public class PuzzleOne {
 		Collections.sort(population);
 		
 		// remove 10% of the weakest part of the population
-		for(int i = 0; i < (int)(POPULATION_SIZE * 0.5); i++){
+		for(int i = 0; i < (int)(POPULATION_SIZE*POPULATION_ACTION_PERCENT); i++){
 			population.remove(0);
 		}
 	}
@@ -136,7 +163,6 @@ public class PuzzleOne {
 	
 	/**
 	 * Reproduce with the current population
-	 * **** NEEDS TO BE CHANGED, RIGHT NOW THERE IS A VERY SIMPLE REPRODUCE THAT JUST ADDS NEW OBJECTS INTO THE POPULATION ****
 	 */
 	public void reproduce(){
 		
@@ -144,10 +170,20 @@ public class PuzzleOne {
 		Collections.sort(population);
 		Collections.reverse(population);
 		
-		for(int i = 0; i < (int)(POPULATION_SIZE * 0.5); i+=2){
+		for(int i = 0; i < (int)(POPULATION_SIZE*POPULATION_ACTION_PERCENT); i+=2){
+			
+			// get two random indexes for reproduction based on the exponential function
+			// (1/1000) * (randInt)^2 = index
+			// this function favors sequences with higher fitness scores
+			int randIndex1 = randomGenerator.nextInt((int)Math.sqrt(1000*POPULATION_SIZE*(1-POPULATION_ACTION_PERCENT)));
+			int randIndex2 = randomGenerator.nextInt((int)Math.sqrt(1000*POPULATION_SIZE*(1-POPULATION_ACTION_PERCENT)));
+			
+			randIndex1 = (int) (Math.pow(randIndex1, 2) / 1000);
+			randIndex2 = (int) (Math.pow(randIndex2, 2) / 1000);
+			
 			// get two sequences
-			int[] array1 = population.get(i).getSequence();
-			int[] array2 = population.get(i + 1).getSequence();
+			int[] array1 = population.get(randIndex1).getSequence();
+			int[] array2 = population.get(randIndex2).getSequence();
 			
 			// find a splicing point
 			int splicePoint = findSplicingPoint(array1, array2);
@@ -156,13 +192,41 @@ public class PuzzleOne {
 			int[] newArray1 = generateNewArray(array1, array2, splicePoint);
 			int[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
-			// **** still need to add mutation
-			
 			// add them into the population
-			population.add(i, new NumberSequence(newArray1, goal));
-			population.add(i+1, new NumberSequence(newArray2, goal));
+			population.add(randIndex1, new NumberSequence(newArray1, goal));
+			population.add(randIndex2, new NumberSequence(newArray2, goal));
+		}
+	}
+	
+	/**
+	 * Mutate a percentage of the population. To 
+	 * form new sequences that are not in the 
+	 * original population.
+	 */
+	private void mutatePopulation(){
+		for(int i = 0; i < (int)(POPULATION_SIZE*POPULATION_MUTATION_PERCENT); i++){
+			// randomly choose to either
+			// 0 = add a random possible number to the sequence
+			// 1 = change a number in the sequence randomly
+			int randChoice = randomGenerator.nextInt(2);
+			int randIndex = randomGenerator.nextInt(POPULATION_SIZE);
 			
-			// *** what do we do with the parents? do they die?, how are they accounted for in the population
+			// if choice is to add a random possible number to the sequence
+			if(randChoice == 0){
+				// get a random possible number
+				// add the possible number to the sequence
+				int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
+				population.get(randIndex).addToSequence(randPossibleNum);
+			}
+			
+			// if the choice is to change a number in the sequence
+			else{
+				// get a random sequence index and a random possible number
+				// change the number at the sequence index to the possible number
+				int randSeqIndex = randomGenerator.nextInt(population.get(randIndex).getSequence().length);
+				int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
+				population.get(randIndex).changeInSequence(randSeqIndex, randPossibleNum);
+			}
 		}
 	}
 	

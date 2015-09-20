@@ -123,4 +123,18 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		
 		return 0;
 	}
+	
+	public void addToSequence(int possibleNumber){
+		int[] temp = new int[sequence.length + 1];
+		for(int i = 0; i < sequence.length; i++){
+			temp[i] = sequence[i];
+		}
+		
+		temp[sequence.length] = possibleNumber;
+		sequence = temp;
+	}
+	
+	public void changeInSequence(int sequenceIndex, int possibleNumber){
+		sequence[sequenceIndex] = possibleNumber;
+	}
 }

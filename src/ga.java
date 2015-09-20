@@ -38,7 +38,7 @@ public class ga {
 			System.out.print("\n");
 			
 			pz1.solvePuzzle();
-
+			/*
 			System.out.print("Printing out randomly generated population\n");
 			ArrayList<NumberSequence> ans = pz1.getPopulation();
 			Collections.sort(ans);
@@ -49,7 +49,7 @@ public class ga {
 				}
 				System.out.print("Goal: " + pz1.getGoal() + "\n");
 			}
-			
+			*/
 			System.out.println("Most fit sequence:");
 			NumberSequence ns = pz1.mostFitInPopulation();
 			for(int i = 0; i < ns.getSequence().length; i++){
