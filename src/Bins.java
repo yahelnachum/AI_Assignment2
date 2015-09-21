@@ -60,10 +60,10 @@ public class Bins implements Comparable<Bins> {
 	}
 	
 	@Override
-	public int compareTo(Bins ns1) {
+	public int compareTo(Bins bin1) {
 		// get the fitness functions of each sequence
 		int fitness0 = this.getFitness();
-		int fitness1 = ns1.getFitness();
+		int fitness1 = bin1.getFitness();
 		
 		// compare and return the appropriate value
 		if(fitness0 > fitness1)
