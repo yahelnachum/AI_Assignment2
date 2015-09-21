@@ -1,6 +1,9 @@
+package PuzzleOneFiles;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+import Utility.Clock;
 
 public class PuzzleOne {
 
@@ -56,7 +59,7 @@ public class PuzzleOne {
 	 * Construct a PuzzleOne with a time limit
 	 * @param time The time in milliseconds that the algorithm has to solve the problem
 	 */
-	PuzzleOne(int time){
+	public PuzzleOne(int time){
 		clock = new Clock(time);
 	}
 	

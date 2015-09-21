@@ -1,13 +1,22 @@
+package Utility;
 
 public class Clock {
 
+	/**
+	 * Keeps track of the previous time.
+	 */
 	private long prev;
+	
+	
+	/**
+	 * Used to check if the time has elapsed over the amount of the target time in milliseconds
+	 */
 	private long targetTime;
 	
 	/**
 	 * Constructs a clock with previous set to the current time.
 	 */
-	Clock(){
+	public Clock(){
 		prev = System.currentTimeMillis();
 		targetTime = 0;
 	}
@@ -16,7 +25,7 @@ public class Clock {
 	 * Constructs a clock with the given target time
 	 * @param targetTime The time (in milliseconds) to check if it is over the target time or not
 	 */
-	Clock(long targetTime){
+	public Clock(long targetTime){
 		prev = System.currentTimeMillis();
 		this.targetTime = targetTime;
 	}

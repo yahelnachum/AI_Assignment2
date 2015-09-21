@@ -1,4 +1,10 @@
+package Main;
 import java.util.*;
+
+import PuzzleOneFiles.NumberSequence;
+import PuzzleOneFiles.PuzzleOne;
+import Utility.Clock;
+import Utility.FileInputOutput;
 
 public class ga {
 
@@ -59,6 +65,10 @@ public class ga {
 			System.out.println("\nGeneration: " + pz1.getGeneration());
 			
 			System.out.println("\nTime: " + c.delta());
+			break;
+		case PUZZLE_TWO:
+			break;
+		case PUZZLE_THREE:
 			break;
 		}
 	}

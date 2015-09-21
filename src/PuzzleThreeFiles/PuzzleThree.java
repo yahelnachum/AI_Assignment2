@@ -1,7 +1,11 @@
+package PuzzleThreeFiles;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PuzzleTwo {
+import Utility.Clock;
+
+public class PuzzleThree {
 
 	/**
 	 * A clock to stop the algorithm when the time is up
@@ -9,33 +13,53 @@ public class PuzzleTwo {
 	private Clock clock;
 	
 	/**
-	 * An array of the possible numbers that 
-	 * are able to be used in a sequence
+	 * An array of the possible pieces that 
+	 * are able to be used in a building
 	 */
-	private int[] possibleNumbers = null;
+	private BuildingPiece[] possiblePieces = null;
 	
 	/**
 	 * Number of generations the algorithm went for.
 	 */
 	private int generation = 0;
 	
-	private ArrayList<Bins> population = new ArrayList<Bins>();
+	/**
+	 * ArrayList of the buildings in the population
+	 */
+	private ArrayList<Building> population = new ArrayList<Building>();
 	
-	PuzzleTwo(int time){
+	/**
+	 * Sets the amount of time that the algorithm can run for
+	 * @param time
+	 */
+	PuzzleThree(int time){
 		clock = new Clock(time);
 	}
 	
 
-	public void setPossibleNumbers(int[] possibleNumbers){
-		this.possibleNumbers = possibleNumbers;
+	/**
+	 * Sets the possible pieces that are able to be used in each building
+	 * @param possiblePieces
+	 */
+	public void setPossiblePieces(BuildingPiece[] possiblePieces){
+		this.possiblePieces = possiblePieces;
 	}
 	
-	public int[] getPossibleNumbers(){
-		return possibleNumbers;
+	/**
+	 * Gets the possible pieces that are able to be used in each building
+	 * @return
+	 */
+	public BuildingPiece[] getPossibleNumbers(){
+		return possiblePieces;
 	}
 	
+	/**
+	 * Solves the puzzle by initializing the population,
+	 * then going into a loop of culling the population,
+	 * reproducing it, and mutating it until the algorithm runs out of time.
+	 */
 	public void solvePuzzle(){
-		if(possibleNumbers == null){
+		if(possiblePieces == null){
 			System.out.println("PuzzleOne::solvePuzzle(): possibleNumbers is not initialized!");
 			return;
 		}
@@ -83,19 +107,26 @@ public class PuzzleTwo {
 		
 	}
 	
+	/**
+	 * Mutate a portion of the population
+	 */
 	private void mutatePopulation(){
 
 	}
 	
-	public ArrayList<Bins> getPopulation(){
+	/**
+	 * Get the current population of building objects
+	 * @return
+	 */
+	public ArrayList<Building> getPopulation(){
 		return population;
 	}
 	
 	/**
-	 * Returns the most fit bins from the population
-	 * @return A Bins that has the highest fitness function from the population.
+	 * Returns the most fit building from the population
+	 * @return A building that has the highest fitness function from the population.
 	 */
-	public Bins mostFitInPopulation(){
+	public Building mostFitInPopulation(){
 		Collections.sort(population);
 		return population.get(population.size() - 1);
 	}

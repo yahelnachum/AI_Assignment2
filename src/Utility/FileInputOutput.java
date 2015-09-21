@@ -1,5 +1,10 @@
+package Utility;
 import java.io.*;
 import java.util.ArrayList;
+
+import PuzzleOneFiles.PuzzleOne;
+import PuzzleThreeFiles.PuzzleThree;
+import PuzzleTwoFiles.PuzzleTwo;
 
 // skeleton of file input reader is taken from website in the next comment line
 // http://stackoverflow.com/questions/4716503/best-way-to-read-a-text-file-in-java
@@ -15,7 +20,7 @@ public class FileInputOutput {
 	 * @param fileName The file to pars the numbers from.
 	 * @param obj The PuzzleOne object to set the goal and possible numbers array.
 	 */
-	static void fileToPuzzleOne(String fileName, PuzzleOne obj) {
+	public static void fileToPuzzleOne(String fileName, PuzzleOne obj) {
 		try {
 			// open up file
 			BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -52,11 +57,11 @@ public class FileInputOutput {
 		}
 	}
 	
-	static void fileToPuzzleTwo(String fileName) {
+	public static void fileToPuzzleTwo(String fileName, PuzzleTwo obj) {
 		
 	}
 	
-	static void fileToPuzzleThree(String fileName) {
+	public static void fileToPuzzleThree(String fileName, PuzzleThree obj) {
 		
 	}
 	

@@ -1,3 +1,4 @@
+package PuzzleOneFiles;
 
 public class NumberSequence implements Comparable<NumberSequence> {
 

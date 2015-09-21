@@ -1,7 +1,10 @@
+package PuzzleTwoFiles;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class PuzzleThree {
+import Utility.Clock;
+
+public class PuzzleTwo {
 
 	/**
 	 * A clock to stop the algorithm when the time is up
@@ -12,30 +15,30 @@ public class PuzzleThree {
 	 * An array of the possible numbers that 
 	 * are able to be used in a sequence
 	 */
-	private BuildingPiece[] possiblePieces = null;
+	private int[] possibleNumbers = null;
 	
 	/**
 	 * Number of generations the algorithm went for.
 	 */
 	private int generation = 0;
 	
-	private ArrayList<Building> population = new ArrayList<Building>();
+	private ArrayList<Bins> population = new ArrayList<Bins>();
 	
-	PuzzleThree(int time){
+	PuzzleTwo(int time){
 		clock = new Clock(time);
 	}
 	
 
-	public void setPossibleNumbers(BuildingPiece[] possiblePieces){
-		this.possiblePieces = possiblePieces;
+	public void setPossibleNumbers(int[] possibleNumbers){
+		this.possibleNumbers = possibleNumbers;
 	}
 	
-	public BuildingPiece[] getPossibleNumbers(){
-		return possiblePieces;
+	public int[] getPossibleNumbers(){
+		return possibleNumbers;
 	}
 	
 	public void solvePuzzle(){
-		if(possiblePieces == null){
+		if(possibleNumbers == null){
 			System.out.println("PuzzleOne::solvePuzzle(): possibleNumbers is not initialized!");
 			return;
 		}
@@ -87,7 +90,7 @@ public class PuzzleThree {
 
 	}
 	
-	public ArrayList<Building> getPopulation(){
+	public ArrayList<Bins> getPopulation(){
 		return population;
 	}
 	
@@ -95,7 +98,7 @@ public class PuzzleThree {
 	 * Returns the most fit bins from the population
 	 * @return A Bins that has the highest fitness function from the population.
 	 */
-	public Building mostFitInPopulation(){
+	public Bins mostFitInPopulation(){
 		Collections.sort(population);
 		return population.get(population.size() - 1);
 	}
