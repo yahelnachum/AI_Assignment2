@@ -14,7 +14,7 @@ public class ga {
 		int targetSeconds = Integer.parseInt(args[2]);
 		
 		System.out.println(
-				"Arguements taken in:\n" +
+				"Arguments taken in:\n" +
 				"args[0] = " + puzzleToSolve + "\n" +
 				"args[1] = " + fileName + "\n" +
 				"args[2] = " + targetSeconds + "\n");
