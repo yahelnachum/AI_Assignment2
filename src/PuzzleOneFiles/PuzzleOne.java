@@ -145,7 +145,7 @@ public class PuzzleOne {
 			
 			/* add a new number sequence with the newly created 
 			 * sequence and the goal from the input */
-			population.add(new NumberSequence(numSeq, goal));
+			population.add(new NumberSequence(numSeq, goal, generation));
 		}
 	}
 	
@@ -196,8 +196,8 @@ public class PuzzleOne {
 			int[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
 			// add them into the population
-			population.add(randIndex1, new NumberSequence(newArray1, goal));
-			population.add(randIndex2, new NumberSequence(newArray2, goal));
+			population.add(randIndex1, new NumberSequence(newArray1, goal, generation));
+			population.add(randIndex2, new NumberSequence(newArray2, goal, generation));
 		}
 	}
 	
