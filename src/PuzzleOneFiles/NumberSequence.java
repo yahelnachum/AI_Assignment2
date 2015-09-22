@@ -13,13 +13,20 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	private int goal;
 	
 	/**
+	 * The generation of the number sequence.
+	 */
+	private int generation;
+	
+	/**
 	 * Create an object with the given array as the sequence of numbers trying to add up to the goal.
 	 * @param sequence The array of numbers trying to add up to get the goal or second closest that doesn't go over the goal.
 	 * @param goal The goal that the array is supposed to sum to without going over.
+	 * @param generation The generation number of the current generation.
 	 */
-	NumberSequence(int[] sequence, int goal){
+	NumberSequence(int[] sequence, int goal, int generation){
 		this.sequence = sequence;
 		this.goal = goal;
+		this.generation = generation;
 	}
 	
 	/**
@@ -120,6 +127,14 @@ public class NumberSequence implements Comparable<NumberSequence> {
 			return 1;
 		else if(fitness0 < fitness1){
 			return -1;
+		}
+		else if(fitness0 == fitness1){
+			if(this.generation > ns1.generation){
+				return 1;
+			}
+			else if(this.generation < ns1.generation){
+				return -1;
+			} 
 		}
 		
 		return 0;
