@@ -153,4 +153,8 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	public void changeInSequence(int sequenceIndex, int possibleNumber){
 		sequence[sequenceIndex] = possibleNumber;
 	}
+	
+	public int getGeneration(){
+		return this.generation;
+	}
 }
