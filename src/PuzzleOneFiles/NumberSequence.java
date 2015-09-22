@@ -129,10 +129,10 @@ public class NumberSequence implements Comparable<NumberSequence> {
 			return -1;
 		}
 		else if(fitness0 == fitness1){
-			if(this.generation > ns1.generation){
+			if(this.generation < ns1.generation){
 				return 1;
 			}
-			else if(this.generation < ns1.generation){
+			else if(this.generation > ns1.generation){
 				return -1;
 			} 
 		}

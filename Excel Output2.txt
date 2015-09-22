@@ -1,0 +1,17 @@
+     Current Generation	        Most Fit Fitness	     Most Fit Generation	      Median Fit Fitness	   Median Fit Generation	       Worst Fit Fitness	    Worst Fit Generation
+0	97	0	-602	0	-1304	0
+1	97	0	-526	0	-1022	0
+2	97	0	-434	0	-919	0
+3	97	0	-374	0	-806	0
+4	97	0	-318	1	-761	0
+5	97	0	-291	0	-649	3
+6	97	0	-213	2	-591	0
+7	97	0	-162	1	-509	4
+8	97	0	-100	0	-422	0
+9	97	0	-75	0	-343	0
+10	97	0	-50	8	-311	0
+11	100	10	-23	7	-234	0
+12	100	10	-14	6	-175	2
+13	100	10	-13	7	-139	12
+14	100	10	-1	10	-144	13
+15	100	10	31	13	-75	0

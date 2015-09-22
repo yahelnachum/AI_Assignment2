@@ -40,31 +40,13 @@ public class ga {
 			int[] possNums = pz1.getPossibleNumbers();
 			for(int i = 0; i < possNums.length; i++){
 				System.out.print(possNums[i] + ", ");
+				if(i % 10 == 0)
+					System.out.print("\n");
 			}
 			System.out.print("\n");
 			
 			pz1.solvePuzzle();
-			/*
-			System.out.print("Printing out randomly generated population\n");
-			ArrayList<NumberSequence> ans = pz1.getPopulation();
-			Collections.sort(ans);
-			for(int i = 0; i < ans.size(); i++){
-				System.out.print("NumberSequence[" + i + "] sum: " + ans.get(i).getFitness() + " sequence: ");
-				for(int j = 0; j < ans.get(i).getSequence().length; j++){
-					System.out.print(ans.get(i).getSequence()[j] + ", ");
-				}
-				System.out.print("Goal: " + pz1.getGoal() + "\n");
-			}
-			*/
-			System.out.println("Most fit sequence:");
-			NumberSequence ns = pz1.mostFitInPopulation();
-			for(int i = 0; i < ns.getSequence().length; i++){
-				System.out.print(ns.getSequence()[i] + ", ");
-			}
-			System.out.println("\nFitness: " + ns.getFitness());
-			System.out.println("\nGeneration: " + pz1.getGeneration());
-			
-			System.out.println("\nTime: " + c.delta());
+
 			break;
 		case PUZZLE_TWO:
 			break;

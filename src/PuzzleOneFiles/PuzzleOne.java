@@ -60,7 +60,7 @@ public class PuzzleOne {
 	 * @param time The time in milliseconds that the algorithm has to solve the problem
 	 */
 	public PuzzleOne(int time){
-		clock = new Clock(time);
+		clock = new Clock(10);
 	}
 	
 	/**
@@ -109,21 +109,34 @@ public class PuzzleOne {
 		// initialize population with random sequences
 		initializePopulation();
 		
+		System.out.printf("%23s, %23s, %23s, %23s, %23s, %23s, %23s\n", "Current Generation"
+				, "Most Fit Fitness"
+				, "Most Fit Generation"
+				, "Median Fit Fitness"
+				, "Median Fit Generation"
+				, "Worst Fit Fitness"
+				, "Worst Fit Generation");
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
+			if(generation % 1 == 0){
+				Collections.sort(population);
+				NumberSequence mostFit = population.get(POPULATION_SIZE-1);
+				NumberSequence medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
+				NumberSequence worstFit = population.get(0);
+				System.out.printf("%23d, %23d, %23d, %23d, %23d, %23d, %23d\n", generation, 
+									mostFit.getFitness(), mostFit.getGeneration(),
+									medianFit.getFitness(), medianFit.getGeneration(),
+									worstFit.getFitness(), worstFit.getGeneration());
+			}
+			
 			// remove a portion of the population
 			cullPopulation();
 			
 			// reproduce with the fittest more likely being parents
 			reproduce();
 			
-			// mutate a portion of the population
-			mutatePopulation();
-			
 			generation++;
 		}
-		
-		System.out.println("Best solution is ...");
 	}
 	
 	/**
@@ -195,9 +208,15 @@ public class PuzzleOne {
 			int[] newArray1 = generateNewArray(array1, array2, splicePoint);
 			int[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
+			NumberSequence ns1 = new NumberSequence(newArray1, goal, generation);
+			NumberSequence ns2 = new NumberSequence(newArray2, goal, generation);
+			
+			mutateArray(ns1);
+			mutateArray(ns2);
+			
 			// add them into the population
-			population.add(randIndex1, new NumberSequence(newArray1, goal, generation));
-			population.add(randIndex2, new NumberSequence(newArray2, goal, generation));
+			population.add(randIndex1, ns1);
+			population.add(randIndex2, ns2);
 		}
 	}
 	
@@ -206,31 +225,30 @@ public class PuzzleOne {
 	 * form new sequences that are not in the 
 	 * original population.
 	 */
-	private void mutatePopulation(){
-		for(int i = 0; i < (int)(POPULATION_SIZE*POPULATION_MUTATION_PERCENT); i++){
-			// randomly choose to either
-			// 0 = add a random possible number to the sequence
-			// 1 = change a number in the sequence randomly
-			int randChoice = randomGenerator.nextInt(2);
-			int randIndex = randomGenerator.nextInt(POPULATION_SIZE);
-			
-			// if choice is to add a random possible number to the sequence
-			if(randChoice == 0){
-				// get a random possible number
-				// add the possible number to the sequence
-				int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
-				population.get(randIndex).addToSequence(randPossibleNum);
-			}
-			
-			// if the choice is to change a number in the sequence
-			else{
-				// get a random sequence index and a random possible number
-				// change the number at the sequence index to the possible number
-				int randSeqIndex = randomGenerator.nextInt(population.get(randIndex).getSequence().length);
-				int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
-				population.get(randIndex).changeInSequence(randSeqIndex, randPossibleNum);
-			}
+	private void mutateArray(NumberSequence ns){
+
+		// randomly choose to either
+		// 0 = add a random possible number to the sequence
+		// 1 = change a number in the sequence randomly
+		int randChoice = randomGenerator.nextInt(2);
+		
+		// if choice is to add a random possible number to the sequence
+		if(randChoice == 0){
+			// get a random possible number
+			// add the possible number to the sequence
+			int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
+			ns.addToSequence(randPossibleNum);
 		}
+		
+		// if the choice is to change a number in the sequence
+		else{
+			// get a random sequence index and a random possible number
+			// change the number at the sequence index to the possible number
+			int randSeqIndex = randomGenerator.nextInt(ns.getSequence().length);
+			int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
+			ns.changeInSequence(randSeqIndex, randPossibleNum);
+		}
+		
 	}
 	
 	/**
