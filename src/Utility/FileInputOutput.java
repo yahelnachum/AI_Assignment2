@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import PuzzleOneFiles.PuzzleOne;
+import PuzzleThreeFiles.BuildingPiece;
 import PuzzleThreeFiles.PuzzleThree;
 import PuzzleTwoFiles.PuzzleTwo;
 
@@ -62,7 +63,39 @@ public class FileInputOutput {
 	}
 	
 	public static void fileToPuzzleThree(String fileName, PuzzleThree obj) {
-		
+		try {
+			// open up file
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			try {
+				String line = br.readLine();
+
+				ArrayList<BuildingPiece> possiblePieces = new ArrayList<BuildingPiece>();
+				
+				while (line != null) {
+					String[] pieceAttributes = line.split("\t");
+					possiblePieces.add(new BuildingPiece(	pieceAttributes[0],						// type
+															Integer.parseInt(pieceAttributes[1]),	// width
+															Integer.parseInt(pieceAttributes[2]), 	// strength
+															Integer.parseInt(pieceAttributes[3])));	// cost
+					line = br.readLine();
+				}
+				
+				BuildingPiece[] possPieces = new BuildingPiece[possiblePieces.size()];
+				for(int i = 0; i < possiblePieces.size(); i++){
+					possPieces[i] = possiblePieces.get(i);
+				}
+				
+				obj.setPossiblePieces(possPieces);
+				
+				// close file
+				br.close();
+				
+			} finally {
+
+			}
+		} catch (Exception e) {
+
+		}
 	}
 	
 	

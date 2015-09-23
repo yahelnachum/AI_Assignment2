@@ -5,9 +5,9 @@ public class BuildingPiece {
 	/**
 	 * Final strings for the possible types of pieces
 	 */
-	public final String TYPE_DOOR = "TYPE:DOOR";
-	public final String TYPE_WALL = "TYPE:WALL";
-	public final String TYPE_LOOKOUT = "TYPE:LOOKOUT";
+	public final String TYPE_DOOR = "Door";
+	public final String TYPE_WALL = "Wall";
+	public final String TYPE_LOOKOUT = "Lookout";
 	
 	/**
 	 * The attributes of each piece of the building
@@ -25,7 +25,7 @@ public class BuildingPiece {
 	 * @param cost
 	 */
 	public BuildingPiece(String type, int width, int strength, int cost){
-		if(type != TYPE_DOOR || type != TYPE_WALL || type != TYPE_LOOKOUT){
+		if(!(type.equals(TYPE_DOOR) || type.equals(TYPE_WALL) || type.equals(TYPE_LOOKOUT))){
 				System.out.println("BuildingPiece:BuildingPiece(): type given is not supported!");
 				return;
 		}

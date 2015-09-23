@@ -3,6 +3,7 @@ import java.util.*;
 
 import PuzzleOneFiles.NumberSequence;
 import PuzzleOneFiles.PuzzleOne;
+import PuzzleThreeFiles.PuzzleThree;
 import Utility.Clock;
 import Utility.FileInputOutput;
 
@@ -38,9 +39,20 @@ public class ga {
 			pz1.solvePuzzle();
 
 			break;
+			
 		case PUZZLE_TWO:
 			break;
-		case PUZZLE_THREE:
+			
+		case PUZZLE_THREE:	
+			// set the clock
+			PuzzleThree pz3 = new PuzzleThree(targetSeconds*1000);
+			
+			// get the possible pieces to use from the file
+			FileInputOutput.fileToPuzzleThree(fileName, pz3);
+			
+			// solve puzzle for remaining time
+			pz3.solvePuzzle();
+			
 			break;
 		}
 	}

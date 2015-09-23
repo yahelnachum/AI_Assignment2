@@ -32,7 +32,7 @@ public class PuzzleThree {
 	 * Sets the amount of time that the algorithm can run for
 	 * @param time
 	 */
-	PuzzleThree(int time){
+	public PuzzleThree(int time){
 		clock = new Clock(time);
 	}
 	
@@ -43,13 +43,23 @@ public class PuzzleThree {
 	 */
 	public void setPossiblePieces(BuildingPiece[] possiblePieces){
 		this.possiblePieces = possiblePieces;
+		
+		// print out possible pieces
+		System.out.println("Possible numbers to use in sequence:");
+		for(int i = 0; i < possiblePieces.length; i++){
+			System.out.printf("%10s, %5d, %5d, %5d\n", 	possiblePieces[i].getType(), 
+														possiblePieces[i].getWidth(), 
+														possiblePieces[i].getStrength(), 
+														possiblePieces[i].getCost());
+		}
+		System.out.print("\n");
 	}
 	
 	/**
 	 * Gets the possible pieces that are able to be used in each building
 	 * @return
 	 */
-	public BuildingPiece[] getPossibleNumbers(){
+	public BuildingPiece[] getPossiblePieces(){
 		return possiblePieces;
 	}
 	
@@ -60,7 +70,7 @@ public class PuzzleThree {
 	 */
 	public void solvePuzzle(){
 		if(possiblePieces == null){
-			System.out.println("PuzzleOne::solvePuzzle(): possibleNumbers is not initialized!");
+			System.out.println("PuzzleThree::solvePuzzle(): possiblePieces is not initialized!");
 			return;
 		}
 		
@@ -80,8 +90,7 @@ public class PuzzleThree {
 			
 			generation++;
 		}
-		
-		System.out.println("Best solution is ...");
+
 	}
 	
 	/**
