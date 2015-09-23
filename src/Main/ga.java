@@ -3,6 +3,8 @@ import java.util.*;
 
 import PuzzleOneFiles.NumberSequence;
 import PuzzleOneFiles.PuzzleOne;
+import PuzzleThreeFiles.Building;
+import PuzzleThreeFiles.BuildingPiece;
 import PuzzleThreeFiles.PuzzleThree;
 import Utility.Clock;
 import Utility.FileInputOutput;
@@ -45,14 +47,27 @@ public class ga {
 			
 		case PUZZLE_THREE:	
 			// set the clock
-			PuzzleThree pz3 = new PuzzleThree(targetSeconds*1000);
+			PuzzleThree pz3 = new PuzzleThree(targetSeconds*1000);			
 			
 			// get the possible pieces to use from the file
 			FileInputOutput.fileToPuzzleThree(fileName, pz3);
-			
+						
 			// solve puzzle for remaining time
 			pz3.solvePuzzle();
 			
+			ArrayList<Building> buildings = pz3.getPopulation();
+			Collections.sort(buildings);
+			for(int i = 0; i < buildings.size(); i++){
+				System.out.printf("fitness: %d\nscore: %d\n", 
+						buildings.get(i).getFitness(),
+						buildings.get(i).getScore());
+				for(int j = 0; j < buildings.get(i).getList().length; j++){
+					System.out.printf("%30s valid: %s\n", 
+							buildings.get(i).getList()[j].toString(), 
+							buildings.get(i).isValidBuilding()? "True" : "False");
+				}
+				System.out.println();
+			}			
 			break;
 		}
 	}

@@ -19,11 +19,6 @@ public class PuzzleOne {
 	private final double POPULATION_ACTION_PERCENT = 0.10;
 	
 	/**
-	 * Percent of the population to mutate.
-	 */
-	private final double POPULATION_MUTATION_PERCENT = 0.10;
-	
-	/**
 	 * Goal that the optimal sequence will 
 	 * try to sum up to and not go over
 	 */

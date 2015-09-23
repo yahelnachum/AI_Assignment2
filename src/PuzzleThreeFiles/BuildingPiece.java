@@ -5,9 +5,9 @@ public class BuildingPiece {
 	/**
 	 * Final strings for the possible types of pieces
 	 */
-	public final String TYPE_DOOR = "Door";
-	public final String TYPE_WALL = "Wall";
-	public final String TYPE_LOOKOUT = "Lookout";
+	public static final String TYPE_DOOR = "Door";
+	public static final String TYPE_WALL = "Wall";
+	public static final String TYPE_LOOKOUT = "Lookout";
 	
 	/**
 	 * The attributes of each piece of the building
@@ -66,5 +66,9 @@ public class BuildingPiece {
 	 */
 	public int getCost(){
 		return cost;
+	}
+	
+	public String toString(){
+		return type + ", " + width + ", " + strength + ", " + cost;
 	}
 }

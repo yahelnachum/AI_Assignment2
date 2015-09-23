@@ -2,11 +2,23 @@ package PuzzleThreeFiles;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import Utility.Clock;
 
 public class PuzzleThree {
 
+	/**
+	 * The size of the population
+	 */
+	private final int POPULATION_SIZE = 100;
+	
+	/**
+	 * Percent of the population to act upon.
+	 * Actions include culling the population and reproducing for the next generation.
+	 */
+	private final double POPULATION_ACTION_PERCENT = 0.10;
+	
 	/**
 	 * A clock to stop the algorithm when the time is up
 	 */
@@ -27,6 +39,11 @@ public class PuzzleThree {
 	 * ArrayList of the buildings in the population
 	 */
 	private ArrayList<Building> population = new ArrayList<Building>();
+	
+	/**
+	 * Random number generator
+	 */
+	private Random randomGenerator = new Random();
 	
 	/**
 	 * Sets the amount of time that the algorithm can run for
@@ -97,14 +114,35 @@ public class PuzzleThree {
 	 * Initialize the population of the algorithm.
 	 */
 	public void initializePopulation(){
-		
+		// create the population
+		for(int i = 0; i < POPULATION_SIZE; i++){
+			// get a random length for the number sequence
+			int randArraySize = randomGenerator.nextInt(possiblePieces.length-1)+1;
+			
+			BuildingPiece[] pieceSequence = new BuildingPiece[randArraySize];
+			for(int j = 0; j < randArraySize; j++){
+				// get a random possible number and insert it into the sequence
+				int randIndex = randomGenerator.nextInt(possiblePieces.length);
+				pieceSequence[j] = possiblePieces[randIndex];
+			}
+			
+			/* add a new number sequence with the newly created 
+			 * sequence and the goal from the input */
+			population.add(new Building(pieceSequence, generation, possiblePieces));
+		}
 	}
 	
 	/**
 	 * Cull the current population to the fittest genes
 	 */
 	public void cullPopulation(){
+		// sort the population by the fitness function from low to high
+		Collections.sort(population);
 		
+		// remove 10% of the weakest part of the population
+		for(int i = 0; i < (int)(POPULATION_SIZE*POPULATION_ACTION_PERCENT); i++){
+			population.remove(0);
+		}
 
 	}
 	
@@ -113,7 +151,26 @@ public class PuzzleThree {
 	 * Reproduce with the current population
 	 */
 	public void reproduce(){
-		
+		// sort the population from strongest to weakest
+				Collections.sort(population);
+				Collections.reverse(population);
+				
+				for(int i = 0; i < (int)(POPULATION_SIZE*POPULATION_ACTION_PERCENT); i++){
+					
+					// get a random length for the number sequence
+					int randArraySize = randomGenerator.nextInt(possiblePieces.length-1)+1;
+					
+					BuildingPiece[] pieceSequence = new BuildingPiece[randArraySize];
+					for(int j = 0; j < randArraySize; j++){
+						// get a random possible number and insert it into the sequence
+						int randIndex = randomGenerator.nextInt(possiblePieces.length);
+						pieceSequence[j] = possiblePieces[randIndex];
+					}
+					
+					/* add a new number sequence with the newly created 
+					 * sequence and the goal from the input */
+					population.add(new Building(pieceSequence, generation, possiblePieces));
+				}
 	}
 	
 	/**
