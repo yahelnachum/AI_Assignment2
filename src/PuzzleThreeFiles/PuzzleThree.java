@@ -96,15 +96,27 @@ public class PuzzleThree {
 		// initialize population with random sequences
 		initializePopulation();
 		
-		// keep culling and reproducing until time is up
+		// print header of results
+		System.out.printf("%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\n", "Current Generation"
+				, "Most Fit Fitness"
+				, "Most Fit Score"
+				, "Most Fit Generation"
+				, "Median Fit Fitness"
+				, "Median Fit Score"
+				, "Median Fit Generation"
+				, "Worst Fit Fitness"
+				, "Worst Fit Score"
+				, "Worst Fit Generation");
+		
+				// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
 			// every few generations print out generation, most fit, median fit, worst fit
-			if(generation % 500 == 0){
+			if(generation % 5000 == 0){
 				Collections.sort(population);
 				Building mostFit = population.get(POPULATION_SIZE-1);
 				Building medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
 				Building worstFit = population.get(0);
-				System.out.printf("%5d, %5d, %5d, %5d, %5d, %5d, %5d, %5d, %5d, %5d\n", generation, 
+				System.out.printf("%23d\t%23d\t%23d\t%23d\t%23d\t%23d\t%23d\t%23d\t%23d\t%23d\n", generation, 
 									mostFit.getFitness(), mostFit.getScore(), mostFit.getGeneration(),
 									medianFit.getFitness(), medianFit.getScore(), medianFit.getGeneration(),
 									worstFit.getFitness(), worstFit.getScore(), worstFit.getGeneration());
