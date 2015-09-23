@@ -116,6 +116,7 @@ public class PuzzleOne {
 		// initialize population with random sequences
 		initializePopulation();
 		
+		// print header of results
 		System.out.printf("%23s, %23s, %23s, %23s, %23s, %23s, %23s\n", "Current Generation"
 				, "Most Fit Fitness"
 				, "Most Fit Generation"
@@ -125,6 +126,7 @@ public class PuzzleOne {
 				, "Worst Fit Generation");
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
+			// every few generations print out most fit, median fit, and worst fit
 			if(generation % 5000 == 0){
 				Collections.sort(population);
 				NumberSequence mostFit = population.get(POPULATION_SIZE-1);
@@ -215,9 +217,11 @@ public class PuzzleOne {
 			int[] newArray1 = generateNewArray(array1, array2, splicePoint);
 			int[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
+			// create children number sequences from the new arrays
 			NumberSequence ns1 = new NumberSequence(newArray1, goal, generation, possibleNumbers);
 			NumberSequence ns2 = new NumberSequence(newArray2, goal, generation, possibleNumbers);
 			
+			// mutate the number sequences
 			mutateArray(ns1);
 			mutateArray(ns2);
 			
@@ -266,6 +270,8 @@ public class PuzzleOne {
 	 */
 	private int findSplicingPoint(int[] sequence1, int[] sequence2){
 		int shortestArrayLength = 0;
+
+		// find out which array is shorter
 		if(sequence1.length < sequence2.length)
 			shortestArrayLength = sequence1.length;
 		else
@@ -274,6 +280,7 @@ public class PuzzleOne {
 		if(shortestArrayLength == 0)
 			return 0;
 		
+		// return a random number between 0 and the shortest ray length
 		return randomGenerator.nextInt(shortestArrayLength);
 	}
 	

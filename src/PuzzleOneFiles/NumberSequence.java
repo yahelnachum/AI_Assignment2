@@ -142,6 +142,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		else if(fitness0 < fitness1){
 			return -1;
 		}
+		// if fitnesses are equal then the oldest the sequence wins
 		else if(fitness0 == fitness1){
 			if(this.generation < ns1.generation){
 				return 1;
@@ -154,6 +155,10 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		return 0;
 	}
 	
+	/**
+	 * Add a possible number to the end of the sequence
+	 * @param possibleNumber The number to add on to the sequence
+	 */
 	public void addToSequence(int possibleNumber){
 		int[] temp = new int[sequence.length + 1];
 		for(int i = 0; i < sequence.length; i++){
@@ -164,10 +169,19 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		sequence = temp;
 	}
 	
+	/**
+	 * Change a number in the sequence to the given number
+	 * @param sequenceIndex The index to change.
+	 * @param possibleNumber The number to change to
+	 */
 	public void changeInSequence(int sequenceIndex, int possibleNumber){
 		sequence[sequenceIndex] = possibleNumber;
 	}
 	
+	/**
+	 * Returns the generation that the sequence was made in
+	 * @return
+	 */
 	public int getGeneration(){
 		return this.generation;
 	}

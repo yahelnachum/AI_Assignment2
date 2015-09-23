@@ -48,7 +48,7 @@ public class PuzzleThree {
 	
 	/**
 	 * Sets the amount of time that the algorithm can run for
-	 * @param time
+	 * @param time The time in milliseconds to run for
 	 */
 	public PuzzleThree(int time){
 		clock = new Clock(time);
@@ -57,7 +57,7 @@ public class PuzzleThree {
 
 	/**
 	 * Sets the possible pieces that are able to be used in each building
-	 * @param possiblePieces
+	 * @param possiblePieces The building pieces that can be used in each building
 	 */
 	public void setPossiblePieces(BuildingPiece[] possiblePieces){
 		this.possiblePieces = possiblePieces;
@@ -87,6 +87,7 @@ public class PuzzleThree {
 	 * reproducing it, and mutating it until the algorithm runs out of time.
 	 */
 	public void solvePuzzle(){
+		// check to make sure pieces was set
 		if(possiblePieces == null){
 			System.out.println("PuzzleThree::solvePuzzle(): possiblePieces is not initialized!");
 			return;
@@ -97,6 +98,7 @@ public class PuzzleThree {
 		
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
+			// every few generations print out generation, most fit, median fit, worst fit
 			if(generation % 500 == 0){
 				Collections.sort(population);
 				Building mostFit = population.get(POPULATION_SIZE-1);
@@ -125,18 +127,18 @@ public class PuzzleThree {
 	public void initializePopulation(){
 		// create the population
 		for(int i = 0; i < POPULATION_SIZE; i++){
-			// get a random length for the number sequence
+			// get a random length for the building sequence
 			int randArraySize = randomGenerator.nextInt(possiblePieces.length-1)+1;
 			
 			BuildingPiece[] pieceSequence = new BuildingPiece[randArraySize];
 			for(int j = 0; j < randArraySize; j++){
-				// get a random possible number and insert it into the sequence
+				// get a random possible piece and insert it into the sequence
 				int randIndex = randomGenerator.nextInt(possiblePieces.length);
 				pieceSequence[j] = possiblePieces[randIndex];
 			}
 			
 			/* add a new number sequence with the newly created 
-			 * sequence and the goal from the input */
+			 * sequence from the input */
 			population.add(new Building(pieceSequence, generation, possiblePieces));
 		}
 	}
@@ -175,7 +177,7 @@ public class PuzzleThree {
 			randIndex1 = (int) (Math.pow(randIndex1, 2) / 1000);
 			randIndex2 = (int) (Math.pow(randIndex2, 2) / 1000);
 			
-			// get two sequences
+			// get two pieces
 			BuildingPiece[] array1 = population.get(randIndex1).getList();
 			BuildingPiece[] array2 = population.get(randIndex2).getList();
 			
@@ -186,6 +188,7 @@ public class PuzzleThree {
 			BuildingPiece[] newArray1 = generateNewArray(array1, array2, splicePoint);
 			BuildingPiece[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
+			// make new buildings with the new arrays
 			Building bp1 = new Building(newArray1, generation, possiblePieces);
 			Building bp2 = new Building(newArray2, generation, possiblePieces);
 			

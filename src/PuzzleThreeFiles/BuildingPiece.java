@@ -19,12 +19,13 @@ public class BuildingPiece {
 	
 	/**
 	 * Create a building piece, and set all of its attributes with the given information
-	 * @param type
-	 * @param width
-	 * @param strength
-	 * @param cost
+	 * @param type The type of piece
+	 * @param width The width of the piece
+	 * @param strength The strength of the piece
+	 * @param cost The cost of the piece
 	 */
 	public BuildingPiece(String type, int width, int strength, int cost){
+		// check for invalid types
 		if(!(type.equals(TYPE_DOOR) || type.equals(TYPE_WALL) || type.equals(TYPE_LOOKOUT))){
 				System.out.println("BuildingPiece:BuildingPiece(): type given is not supported!");
 				return;
@@ -68,6 +69,10 @@ public class BuildingPiece {
 		return cost;
 	}
 	
+	/* (non-Javadoc)
+	 * Return a string representation of the piece for printing
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return type + ", " + width + ", " + strength + ", " + cost;
 	}

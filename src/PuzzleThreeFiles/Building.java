@@ -166,6 +166,7 @@ public class Building implements Comparable<Building>{
 			}
 		}
 		
+		// check if building is valid and its score
 		if(!isValidBuilding()){
 			fitness -= 100;
 		}
@@ -173,6 +174,7 @@ public class Building implements Comparable<Building>{
 			fitness -= 100;
 		}
 		else{
+			// higher scoring buildings have a higher fitness
 			fitness += 5*getScore();
 		}
 
@@ -190,6 +192,8 @@ public class Building implements Comparable<Building>{
 	 * @return Returns the integer value of the score of the tower
 	 */
 	public int getScore(){
+		
+		// check for a door on the bottom and a lookout on the top
 		boolean doorOnBottom = list[0].getType().equals(BuildingPiece.TYPE_DOOR);
 		boolean lookoutOnTop = list[list.length - 1].getType().equals(BuildingPiece.TYPE_LOOKOUT);
 		
@@ -197,21 +201,27 @@ public class Building implements Comparable<Building>{
 			return 0;
 		}
 		
+		// keep track of minimum width and strength of each piece
 		int minWidth = list[0].getWidth();
 		int[] strength = new int[list.length];
 		
+		// look through the piece list to check for an invalid building attributes
 		for(int i = 0; i < list.length; i++){
+			// check for doors and lookouts in invalid locations
 			if((i != 0 && list[i].getType().equals(BuildingPiece.TYPE_DOOR)) ||
 			   (i != list.length - 1 && list[i].getType().equals(BuildingPiece.TYPE_LOOKOUT))){
 				return 0;
 			}
+			// if a piece is bigger than the minimum width it is invalid
 			if(minWidth < list[i].getWidth()){
 				return 0;
 			}
+			// else update minimum width
 			else{
 				minWidth = list[i].getWidth();
 			}
 			
+			//check strength of pieces
 			for(int j = i; j >= 0; j--){
 				// if strength not in list yet then add to strength list
 				if(j == i)
@@ -227,12 +237,21 @@ public class Building implements Comparable<Building>{
 			}
 		}
 	
+		// if algorithm has gotten to this point then building is valid
+		// return score of building based on height and cost
 		return (int) (10 + Math.pow(list.length, 2) - getCost());
 	}
 	
+	/**
+	 * Add a building piece to the list in a certain location
+	 * @param index	The index to add the piece at
+	 * @param piece	The piece to add to the list
+	 */
 	public void addToList(int index, BuildingPiece piece){
+		// create a new list 1 more element bigger than the current list
 		BuildingPiece[] newList = new BuildingPiece[list.length + 1];
 		
+		// instantiate the new list
 		for(int i = 0; i < newList.length; i++){
 			if(i < index){
 				newList[i] = list[i];
@@ -245,13 +264,23 @@ public class Building implements Comparable<Building>{
 			}
 		}
 		
+		// update list to new list
 		list = newList;
 	}
 	
+	/**
+	 * Change a piece in the list at a certain location
+	 * @param index The index of the piece to change
+	 * @param piece The piece to change to
+	 */
 	public void changeInList(int index, BuildingPiece piece){
 		list[index] = piece;
 	}
 	
+	/**
+	 * Return the generation that the building was made in
+	 * @return
+	 */
 	public int getGeneration(){
 		return generation;
 	}
