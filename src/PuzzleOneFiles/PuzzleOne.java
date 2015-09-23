@@ -117,7 +117,7 @@ public class PuzzleOne {
 		initializePopulation();
 		
 		// print header of results
-		System.out.printf("%23s, %23s, %23s, %23s, %23s, %23s, %23s\n", "Current Generation"
+		System.out.printf("%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\n", "Current Generation"
 				, "Most Fit Fitness"
 				, "Most Fit Generation"
 				, "Median Fit Fitness"
@@ -132,7 +132,7 @@ public class PuzzleOne {
 				NumberSequence mostFit = population.get(POPULATION_SIZE-1);
 				NumberSequence medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
 				NumberSequence worstFit = population.get(0);
-				System.out.printf("%23d, %23d, %23d, %23d, %23d, %23d, %23d\n", generation, 
+				System.out.printf("%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\n", generation, 
 									mostFit.getFitness(), mostFit.getGeneration(),
 									medianFit.getFitness(), medianFit.getGeneration(),
 									worstFit.getFitness(), worstFit.getGeneration());
