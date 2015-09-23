@@ -59,6 +59,35 @@ public class FileInputOutput {
 	}
 	
 	public static void fileToPuzzleTwo(String fileName, PuzzleTwo obj) {
+		try {
+			// open up file
+			BufferedReader br = new BufferedReader(new FileReader(fileName));
+			try {
+				String line = br.readLine();
+				
+				ArrayList<Double> possibleNumbers = new ArrayList<Double>();
+				
+				while (line != null) {
+					possibleNumbers.add(Double.parseDouble(line));
+					line = br.readLine();
+				}
+
+				double[] possNums = new double[possibleNumbers.size()];
+				for(int i = 0; i < possibleNumbers.size(); i++){
+					possNums[i] = possibleNumbers.get(i);
+				}
+				
+				obj.setPossibleNumbers(possNums);
+				
+				// close file
+				br.close();
+				
+			} finally {
+
+			}
+		}catch (Exception e) {
+
+		}
 		
 	}
 	

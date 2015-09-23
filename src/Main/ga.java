@@ -6,6 +6,8 @@ import PuzzleOneFiles.PuzzleOne;
 import PuzzleThreeFiles.Building;
 import PuzzleThreeFiles.BuildingPiece;
 import PuzzleThreeFiles.PuzzleThree;
+import PuzzleTwoFiles.Bins;
+import PuzzleTwoFiles.PuzzleTwo;
 import Utility.Clock;
 import Utility.FileInputOutput;
 
@@ -48,6 +50,14 @@ public class ga {
 			
 		// puzzle two case
 		case PUZZLE_TWO:
+			// set the clock
+						PuzzleTwo pz2 = new PuzzleTwo(targetSeconds*1000);			
+						
+						// get the possible pieces to use from the file
+						FileInputOutput.fileToPuzzleTwo(fileName, pz2);
+									
+						// solve puzzle for remaining time
+						pz2.solvePuzzle();
 			break;
 			
 		// puzzle three case
