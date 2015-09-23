@@ -34,17 +34,7 @@ public class ga {
 			// get the goal and possible numbers to use from the file
 			FileInputOutput.fileToPuzzleOne(fileName, pz1);
 			
-			System.out.println("Goal from file: " + pz1.getGoal());
-			
-			System.out.println("Possible numbers to use in sequence:");
-			int[] possNums = pz1.getPossibleNumbers();
-			for(int i = 0; i < possNums.length; i++){
-				System.out.print(possNums[i] + ", ");
-				if(i % 10 == 0)
-					System.out.print("\n");
-			}
-			System.out.print("\n");
-			
+			// solve puzzle for remaining time
 			pz1.solvePuzzle();
 
 			break;

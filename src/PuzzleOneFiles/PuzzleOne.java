@@ -60,7 +60,7 @@ public class PuzzleOne {
 	 * @param time The time in milliseconds that the algorithm has to solve the problem
 	 */
 	public PuzzleOne(int time){
-		clock = new Clock(10);
+		clock = new Clock(time);
 	}
 	
 	/**
@@ -69,6 +69,9 @@ public class PuzzleOne {
 	 */
 	public void setGoal(int goal){
 		this.goal = goal;
+		
+		// print out goal
+		System.out.println("Goal from file: " + goal);
 	}
 	
 	/**
@@ -85,6 +88,15 @@ public class PuzzleOne {
 	 */
 	public void setPossibleNumbers(int[] possibleNumbers){
 		this.possibleNumbers = possibleNumbers;
+		
+		// print out possible numbers
+		System.out.println("Possible numbers to use in sequence:");
+		for(int i = 0; i < possibleNumbers.length; i++){
+			System.out.print(possibleNumbers[i] + ", ");
+			if(i % 10 == 0)
+				System.out.print("\n");
+		}
+		System.out.print("\n");
 	}
 	
 	/**
@@ -118,7 +130,7 @@ public class PuzzleOne {
 				, "Worst Fit Generation");
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
-			if(generation % 1 == 0){
+			if(generation % 5000 == 0){
 				Collections.sort(population);
 				NumberSequence mostFit = population.get(POPULATION_SIZE-1);
 				NumberSequence medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
@@ -158,7 +170,7 @@ public class PuzzleOne {
 			
 			/* add a new number sequence with the newly created 
 			 * sequence and the goal from the input */
-			population.add(new NumberSequence(numSeq, goal, generation));
+			population.add(new NumberSequence(numSeq, goal, generation, possibleNumbers));
 		}
 	}
 	
@@ -208,8 +220,8 @@ public class PuzzleOne {
 			int[] newArray1 = generateNewArray(array1, array2, splicePoint);
 			int[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
-			NumberSequence ns1 = new NumberSequence(newArray1, goal, generation);
-			NumberSequence ns2 = new NumberSequence(newArray2, goal, generation);
+			NumberSequence ns1 = new NumberSequence(newArray1, goal, generation, possibleNumbers);
+			NumberSequence ns2 = new NumberSequence(newArray2, goal, generation, possibleNumbers);
 			
 			mutateArray(ns1);
 			mutateArray(ns2);

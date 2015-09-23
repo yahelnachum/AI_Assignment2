@@ -18,15 +18,22 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	private int generation;
 	
 	/**
+	 * An array of the possible numbers that 
+	 * are able to be used in a sequence
+	 */
+	private int[] possibleNumbers = null;
+	
+	/**
 	 * Create an object with the given array as the sequence of numbers trying to add up to the goal.
 	 * @param sequence The array of numbers trying to add up to get the goal or second closest that doesn't go over the goal.
 	 * @param goal The goal that the array is supposed to sum to without going over.
 	 * @param generation The generation number of the current generation.
 	 */
-	NumberSequence(int[] sequence, int goal, int generation){
+	NumberSequence(int[] sequence, int goal, int generation, int[] possibleNumbers){
 		this.sequence = sequence;
 		this.goal = goal;
 		this.generation = generation;
+		this.possibleNumbers = possibleNumbers;
 	}
 	
 	/**
@@ -41,9 +48,11 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	 * Gets the fitness of the sequence
 	 * If the sum is over the goal the fitness 
 	 * is the (goal - sum) so that solutions that 
-	 * will recieve a score of 0 can still be 
-	 * compared for fitness,
-	 * otherwise the sum equals the fitness
+	 * will recieve a score of 0 can still be compared 
+	 * for fitness, otherwise the sum equals the fitness.
+	 * Then the algorithm checks if it is a valid
+	 * sequence, if it isn't the fitness score is
+	 * deducted 100 points.
 	 * @return An integer representing the fitness
 	 */
 	public int getFitness(){
@@ -55,21 +64,26 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		
 		// if sum is over goal then return goal - sum
 		// otherwise return the sum
+		int fitness = 0;
 		if(sum > goal){
-			return goal - sum;
+			fitness += goal - sum;
 		}
 		else {
-			return sum;
+			fitness += sum;
 		}
+		
+		if(!isSequenceValid()){
+			fitness -= goal;
+		}
+		
+		return fitness;
 	}
 	
 	/**
 	 * Returns whether or not the sequence is valid given the possible numbers it can contain.
-	 * @param sequence The sequence that is being checked for validity
-	 * @param possibleNumbers The possible numbers that can show up in the sequence, but each number can only be used once.
-	 * @return	A boolean stating if the sequence is valid.
+	 * @returnA boolean stating if the sequence is valid.
 	 */
-	public static boolean isSequenceValid(int[] sequence, int[] possibleNumbers){
+	public boolean isSequenceValid(){
 		
 		/* if sequence is bigger than possibleNumbers 
 		 * then it is not possible that sequence is a valid */
