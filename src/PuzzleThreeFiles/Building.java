@@ -172,6 +172,9 @@ public class Building implements Comparable<Building>{
 		if(getScore() == 0){
 			fitness -= 100;
 		}
+		else{
+			fitness += 5*getScore();
+		}
 
 		return fitness;
 	}
@@ -191,7 +194,6 @@ public class Building implements Comparable<Building>{
 		boolean lookoutOnTop = list[list.length - 1].getType().equals(BuildingPiece.TYPE_LOOKOUT);
 		
 		if(!(doorOnBottom && lookoutOnTop)){
-			System.out.printf("here0, %b, %b\n", doorOnBottom, lookoutOnTop);
 			return 0;
 		}
 		
@@ -201,11 +203,9 @@ public class Building implements Comparable<Building>{
 		for(int i = 0; i < list.length; i++){
 			if((i != 0 && list[i].getType().equals(BuildingPiece.TYPE_DOOR)) ||
 			   (i != list.length - 1 && list[i].getType().equals(BuildingPiece.TYPE_LOOKOUT))){
-				System.out.println("here1");
 				return 0;
 			}
 			if(minWidth < list[i].getWidth()){
-				System.out.println("here2");
 				return 0;
 			}
 			else{
@@ -222,13 +222,38 @@ public class Building implements Comparable<Building>{
 				
 				// if the strength at that spot is less than 0 then the piece cannot hold up the structure
 				if(strength[j] < 0){
-					System.out.println("here3");
 					return 0;
 				}
 			}
 		}
 	
 		return (int) (10 + Math.pow(list.length, 2) - getCost());
+	}
+	
+	public void addToList(int index, BuildingPiece piece){
+		BuildingPiece[] newList = new BuildingPiece[list.length + 1];
+		
+		for(int i = 0; i < newList.length; i++){
+			if(i < index){
+				newList[i] = list[i];
+			}
+			else if(i > index){
+				newList[i] = list[i-1];
+			}
+			else{
+				newList[i] = piece;
+			}
+		}
+		
+		list = newList;
+	}
+	
+	public void changeInList(int index, BuildingPiece piece){
+		list[index] = piece;
+	}
+	
+	public int getGeneration(){
+		return generation;
 	}
 
 	/* (non-Javadoc)

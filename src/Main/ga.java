@@ -55,7 +55,7 @@ public class ga {
 			// solve puzzle for remaining time
 			pz3.solvePuzzle();
 			
-			ArrayList<Building> buildings = pz3.getPopulation();
+			/*ArrayList<Building> buildings = pz3.getPopulation();
 			Collections.sort(buildings);
 			for(int i = 0; i < buildings.size(); i++){
 				System.out.printf("fitness: %d\nscore: %d\n", 
@@ -67,7 +67,7 @@ public class ga {
 							buildings.get(i).isValidBuilding()? "True" : "False");
 				}
 				System.out.println();
-			}			
+			}*/			
 			break;
 		}
 	}
