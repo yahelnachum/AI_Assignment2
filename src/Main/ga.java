@@ -51,13 +51,13 @@ public class ga {
 		// puzzle two case
 		case PUZZLE_TWO:
 			// set the clock
-						PuzzleTwo pz2 = new PuzzleTwo(targetSeconds*1000);			
+			PuzzleTwo pz2 = new PuzzleTwo(targetSeconds*1000);			
 						
-						// get the possible pieces to use from the file
-						FileInputOutput.fileToPuzzleTwo(fileName, pz2);
+			// get the possible pieces to use from the file
+			FileInputOutput.fileToPuzzleTwo(fileName, pz2);
 									
-						// solve puzzle for remaining time
-						pz2.solvePuzzle();
+			// solve puzzle for remaining time
+			pz2.solvePuzzle();
 			break;
 			
 		// puzzle three case

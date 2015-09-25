@@ -35,6 +35,13 @@ public class PuzzleTwo {
 
 	public void setPossibleNumbers(double[] possNums){
 		this.possibleNumbers = possNums;
+		System.out.println("Possible numbers to use in sequence:");
+		for(int i = 0; i < possibleNumbers.length; i++){
+			System.out.print(possibleNumbers[i] + ", ");
+			if(i % 10 == 0)
+				System.out.print("\n");
+		}
+		System.out.print("\n");
 	}
 	
 	
@@ -59,7 +66,7 @@ public class PuzzleTwo {
 				, "Worst Fit Generation");
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
-			if(generation % 5000 == 0){
+			if(generation % 100 == 0){
 				Collections.sort(population);
 				Bins mostFit = population.get(POPULATION_SIZE-1);
 				Bins medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
@@ -81,7 +88,6 @@ public class PuzzleTwo {
 			generation++;
 		}
 		
-		System.out.println("Best solution is ...");
 	}
 	
 	/**
@@ -92,7 +98,7 @@ public class PuzzleTwo {
 			double[] numbin1 = new double[10];
 			double[] numbin2 = new double[10];
 			double[] numbin3 = new double[10];
-			for(int j = 0; j < 10; j++){
+			for(int j = 0; j < 10 ; j++){
 				// get a random possible number and insert it into the sequence
 				int randIndex = randomGenerator.nextInt(possibleNumbers.length);
 				numbin1[j] = possibleNumbers[randIndex];
@@ -181,8 +187,8 @@ public class PuzzleTwo {
 		if(randChoice == 0){
 			// get a random possible number
 			// add the possible number to the sequence
-			int index1 = randomGenerator.nextInt(possibleNumbers.length/3-1);
-			double randPossibleNum = possibleNumbers[index1];
+			//int index1 = randomGenerator.nextInt(possibleNumbers.length/3-1);
+			double randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
 			nbin.addToBin1(randPossibleNum);
 		}
 			
@@ -252,4 +258,5 @@ public class PuzzleTwo {
 	public int getGeneration(){
 		return generation;
 	}
+	
 }

@@ -119,7 +119,7 @@ public class Bins implements Comparable<Bins> {
 			return score;
 		}
 		else {
-			return 1/Math.abs(score);
+			return Math.abs(score);
 		}
 		
 	}
@@ -134,7 +134,6 @@ public class Bins implements Comparable<Bins> {
 			sumbin2 += bin2[i];
 		}
 		double result = (productbin1 + sumbin2)/2;
-		
 		return result;
 	}
 	
