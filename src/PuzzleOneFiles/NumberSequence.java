@@ -5,7 +5,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	/**
 	 * The integers that are part of the sequence.
 	 */
-	private int[] sequence;
+	private boolean[] sequence;
 	
 	/**
 	 * The number that the sequence is trying to add up to 
@@ -29,7 +29,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	 * @param goal The goal that the array is supposed to sum to without going over.
 	 * @param generation The generation number of the current generation.
 	 */
-	NumberSequence(int[] sequence, int goal, int generation, int[] possibleNumbers){
+	NumberSequence(boolean[] sequence, int goal, int generation, int[] possibleNumbers){
 		this.sequence = sequence;
 		this.goal = goal;
 		this.generation = generation;
@@ -40,7 +40,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	 * Returns the sequence of integers
 	 * @return An int array of the integers
 	 */
-	public int[] getSequence(){
+	public boolean[] getSequence(){
 		return sequence;
 	}
 	
@@ -58,8 +58,11 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	public int getFitness(){
 		// add up all the ints in the array
 		int sum = 0;
+		
 		for(int i = 0; i < sequence.length; i++){
-			sum += sequence[i];
+			if(sequence[i]){
+				sum += possibleNumbers[i+1];
+			}
 		}
 		
 		// if sum is over goal then return goal - sum
@@ -87,10 +90,10 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		
 		/* if sequence is bigger than possibleNumbers 
 		 * then it is not possible that sequence is a valid */
-		if(sequence.length > possibleNumbers.length){
+		if(sequence.length > possibleNumbers.length-1){
 			return false;
 		}
-		
+		/*
 		// use array of 0 and of length possibleNumbers 
 		// to track if a number has already been used
 		int[] dirtyBit = new int[possibleNumbers.length];
@@ -98,12 +101,12 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		// go through the sequence
 		for(int i = 0; i < sequence.length; i++){
 			boolean found = false;
-			for(int j = 0; j < possibleNumbers.length; j++){
+			for(int j = 0; j < possibleNumbers.length; j++){*/
 				/* check to see if the sequence number is in the possibleNumbers list
 				 * if it hasn't been found already, is in the possibleNumbers list, 
 				 * and that possibleNumber hasn't been already used then set found to 
 				 * true and set the possibleNumber's dirtyBit to 1 */
-				if(!found &&
+			/*	if(!found &&
 					possibleNumbers[j] == sequence[i] &&
 					dirtyBit[j] != 1){
 					found = true;
@@ -116,7 +119,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 				return false;
 			}
 		}
-		
+		*/
 		// if it got to here then it found all the sequence in the possibleNumbers
 		return true;
 	}
@@ -159,7 +162,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	 * Add a possible number to the end of the sequence
 	 * @param possibleNumber The number to add on to the sequence
 	 */
-	public void addToSequence(int possibleNumber){
+	/*public void addToSequence(int possibleNumber){
 		int[] temp = new int[sequence.length + 1];
 		for(int i = 0; i < sequence.length; i++){
 			temp[i] = sequence[i];
@@ -168,14 +171,13 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		temp[sequence.length] = possibleNumber;
 		sequence = temp;
 	}
-	
+	*/
 	/**
 	 * Change a number in the sequence to the given number
 	 * @param sequenceIndex The index to change.
-	 * @param possibleNumber The number to change to
 	 */
-	public void changeInSequence(int sequenceIndex, int possibleNumber){
-		sequence[sequenceIndex] = possibleNumber;
+	public void changeInSequence(int sequenceIndex){
+		sequence[sequenceIndex] = !sequence[sequenceIndex];
 	}
 	
 	/**

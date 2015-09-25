@@ -127,7 +127,7 @@ public class PuzzleOne {
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
 			// every few generations print out most fit, median fit, and worst fit
-			if(generation % 5000 == 0){
+			if(generation % 10 == 0){
 				Collections.sort(population);
 				NumberSequence mostFit = population.get(POPULATION_SIZE-1);
 				NumberSequence medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
@@ -146,6 +146,14 @@ public class PuzzleOne {
 			
 			generation++;
 		}
+		Collections.sort(population);
+		NumberSequence mostFit = population.get(POPULATION_SIZE-1);
+		NumberSequence medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
+		NumberSequence worstFit = population.get(0);
+		System.out.printf("%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\n", generation, 
+							mostFit.getFitness(), mostFit.getGeneration(),
+							medianFit.getFitness(), medianFit.getGeneration(),
+							worstFit.getFitness(), worstFit.getGeneration());
 	}
 	
 	/**
@@ -156,23 +164,32 @@ public class PuzzleOne {
 		// create the population
 		for(int i = 0; i < POPULATION_SIZE; i++){
 			// get a random length for the number sequence
-			int randArraySize = randomGenerator.nextInt(possibleNumbers.length-1)+1;
+			//int randArraySize = randomGenerator.nextInt(possibleNumbers.length-1)+1;
 			
-			int[] numSeq = new int[randArraySize];
-			for(int j = 0; j < randArraySize; j++){
+			boolean[] numSeq = new boolean[possibleNumbers.length-1];
+			/*for(int j = 0; j < randArraySize; j++){
 				// get a random possible number and insert it into the sequence
 				int randIndex = randomGenerator.nextInt(possibleNumbers.length);
 				numSeq[j] = possibleNumbers[randIndex];
-			}
-			
+			}*/
 			/* add a new number sequence with the newly created 
 			 * sequence and the goal from the input */
-			population.add(new NumberSequence(numSeq, goal, generation, possibleNumbers));
+			for (int j = 0; j < possibleNumbers.length-1; j++){
+				// get whether a particular number will be added and insert it into the sequence
+				int randIndex = randomGenerator.nextInt(2);
+				if (randIndex == 0){
+					numSeq[j] = false;
+				}
+				else{
+					numSeq[j] = true;
+				}
+				population.add(new NumberSequence(numSeq, goal, generation, possibleNumbers));
+			}
 		}
 	}
 	
 	/**
-	 * Cull the current population to the fitest genes
+	 * Cull the current population to the fittest genes
 	 */
 	public void cullPopulation(){
 		
@@ -207,15 +224,15 @@ public class PuzzleOne {
 			randIndex2 = (int) (Math.pow(randIndex2, 2) / 1000);
 			
 			// get two sequences
-			int[] array1 = population.get(randIndex1).getSequence();
-			int[] array2 = population.get(randIndex2).getSequence();
+			boolean[] array1 = population.get(randIndex1).getSequence();
+			boolean[] array2 = population.get(randIndex2).getSequence();
 			
 			// find a splicing point
 			int splicePoint = findSplicingPoint(array1, array2);
 			
 			// generate two new arrays based on the splicing point
-			int[] newArray1 = generateNewArray(array1, array2, splicePoint);
-			int[] newArray2 = generateNewArray(array2, array1, splicePoint);
+			boolean[] newArray1 = generateNewArray(array1, array2, splicePoint);
+			boolean[] newArray2 = generateNewArray(array2, array1, splicePoint);
 			
 			// create children number sequences from the new arrays
 			NumberSequence ns1 = new NumberSequence(newArray1, goal, generation, possibleNumbers);
@@ -237,7 +254,7 @@ public class PuzzleOne {
 	 * original population.
 	 */
 	private void mutateArray(NumberSequence ns){
-
+/*
 		// randomly choose to either
 		// 0 = add a random possible number to the sequence
 		// 1 = change a number in the sequence randomly
@@ -259,6 +276,11 @@ public class PuzzleOne {
 			int randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
 			ns.changeInSequence(randSeqIndex, randPossibleNum);
 		}
+		*/
+		//get a random sequence index to change whether a number is included in the sequence or not
+		int randSeqIndex = randomGenerator.nextInt(ns.getSequence().length);
+		ns.changeInSequence(randSeqIndex);
+		//make the change at the index
 		
 	}
 	
@@ -268,7 +290,7 @@ public class PuzzleOne {
 	 * @param sequence2	The second sequence that will be cut.
 	 * @return The position in the array to cut it in half.
 	 */
-	private int findSplicingPoint(int[] sequence1, int[] sequence2){
+	private int findSplicingPoint(boolean[] sequence1, boolean[] sequence2){
 		int shortestArrayLength = 0;
 
 		// find out which array is shorter
@@ -294,14 +316,14 @@ public class PuzzleOne {
 	 * @param splicePoint The point where the cut will be made
 	 * @return Returns a new array formed from the old arrays cut at the splice point.
 	 */
-	private static int[] generateNewArray(int[] array1, int[] array2, int splicePoint){
+	private static boolean[] generateNewArray(boolean[] array1, boolean[] array2, int splicePoint){
 		if(splicePoint > array1.length || splicePoint > array2.length){
 			System.out.println("Splice point is bigger than the smallest array length!");
-			return new int[0];
+			return new boolean[0];
 		}
 		
 		// create a new array of array2.length
-		int[] newArray = new int[array2.length];
+		boolean[] newArray = new boolean[array2.length];
 		
 		for(int i = 0; i < array2.length; i++){
 			// if it is before the splice point then take numbers from the first array

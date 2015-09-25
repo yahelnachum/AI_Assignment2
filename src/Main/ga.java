@@ -45,6 +45,8 @@ public class ga {
 			
 			// solve puzzle for remaining time
 			pz1.solvePuzzle();
+			
+			System.out.println("generation: " + pz1.getGeneration());
 
 			break;
 			
