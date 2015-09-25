@@ -7,7 +7,7 @@ import PuzzleOneFiles.NumberSequence;
 import Utility.Clock;
 
 public class PuzzleTwo {
-	private final int POPULATION_SIZE = 30;
+	private final int POPULATION_SIZE = 100;
 	private final double POPULATION_ACTION_PERCENT = 0.10;
 	private Random randomGenerator = new Random();
 	/**
@@ -100,10 +100,13 @@ public class PuzzleTwo {
 			double[] numbin3 = new double[10];
 			for(int j = 0; j < 10 ; j++){
 				// get a random possible number and insert it into the sequence
-				int randIndex = randomGenerator.nextInt(possibleNumbers.length);
-				numbin1[j] = possibleNumbers[randIndex];
-				numbin2[j] = possibleNumbers[randIndex];
-				numbin3[j] = possibleNumbers[randIndex];
+				int randIndex1 = randomGenerator.nextInt(possibleNumbers.length);
+				int randIndex2 = randomGenerator.nextInt(possibleNumbers.length);
+				int randIndex3 = randomGenerator.nextInt(possibleNumbers.length);
+				
+				numbin1[j] = possibleNumbers[randIndex1];
+				numbin2[j] = possibleNumbers[randIndex2];
+				numbin3[j] = possibleNumbers[randIndex3];
 			}
 			
 			/* add a new number sequence with the newly created 
@@ -178,27 +181,10 @@ public class PuzzleTwo {
 	
 	private void mutatePopulation(Bins nbin){
 		
-		// randomly choose to either
-		// 0 = add a random possible number to the sequence
-		// 1 = change a number in the sequence randomly
-		int randChoice = randomGenerator.nextInt(2);
-			
-		// if choice is to add a random possible number to the sequence
-		if(randChoice == 0){
-			// get a random possible number
-			// add the possible number to the sequence
-			//int index1 = randomGenerator.nextInt(possibleNumbers.length/3-1);
+		for(int i = 0; i < 3; i++){
 			double randPossibleNum = possibleNumbers[randomGenerator.nextInt(possibleNumbers.length)];
-			nbin.addToBin1(randPossibleNum);
-		}
-			
-		// if the choice is to change a number in the sequence
-		else{
-			// get a random sequence index and a random possible number
-			// change the number at the sequence index to the possible number
-			int index2 = randomGenerator.nextInt(possibleNumbers.length/3-1);
-			double randPossibleNum = possibleNumbers[index2];
-			nbin.addToBin2(randPossibleNum);
+			int randIndex = randomGenerator.nextInt(10);
+			nbin.changeInBin(i+1, randIndex, randPossibleNum);
 		}
 	}
 	

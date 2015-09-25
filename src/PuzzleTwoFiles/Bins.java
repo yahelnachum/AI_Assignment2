@@ -52,6 +52,17 @@ public class Bins implements Comparable<Bins> {
 		binThree = temp;
 	}
 	
+	public void changeInBin(int binNumber, int index, double possibleNum){
+		if(binNumber == 1){
+			binOne[index] = possibleNum;
+		}
+		else if(binNumber == 2){
+			binTwo[index] = possibleNum;
+		}
+		else{
+			binThree[index] = possibleNum;
+		}
+	}
 	
 	public Bins(){
 		binOne = new double[10];
@@ -112,37 +123,62 @@ public class Bins implements Comparable<Bins> {
 	 * @return
 	 */
 	public double getFitness(){
-		double[] bin1 = this.getBinOne();
-		double[] bin2 = this.getBinTwo();
-		double score = this.getScore(bin1, bin2);
-		if (score >0){
+
+		double score = this.getScore();
+		
+		
+		if (isValidBins() == 0){
 			return score;
 		}
 		else {
-			return 1/Math.abs(score);
+			
+			return score - isValidBins();
 		}
 		
 	}
 	
-	public double getScore(double[] bin1, double[] bin2){
+	public int isValidBins(){
+		int[] dirty = new int[possibleNumbers.length];
+		int sum = 0;
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < possibleNumbers.length; j++){
+				if(binOne[i] == possibleNumbers[j] && dirty[j] != 1){
+					dirty[j] = 1;
+				}
+				else if(binOne[i] == possibleNumbers[j] && dirty[j] == 1){
+					sum++;
+				}
+				
+				if(binTwo[i] == possibleNumbers[j] && dirty[j] != 1){
+					dirty[j] = 1;
+				}
+				else if(binTwo[i] == possibleNumbers[j] && dirty[j] == 1){
+					sum++;
+				}
+				
+				if(binThree[i] == possibleNumbers[j] && dirty[j] != 1){
+					dirty[j] = 1;
+				}
+				else if(binThree[i] == possibleNumbers[j] && dirty[j] == 1){
+					sum++;
+				}
+			}
+		}
+		
+		return sum;
+	}
+	
+	public double getScore(){
 		double productbin1 = 1;
 		double sumbin2 = 0;
-		for (int i = 0; i < bin1.length; i++){
-			productbin1 *= bin1[i];
+		for (int i = 0; i < binOne.length; i++){
+			productbin1 *= binOne[i];
 		}
-		for (int i = 0; i < bin2.length; i++){
-			sumbin2 += bin2[i];
+		for (int i = 0; i < binTwo.length; i++){
+			sumbin2 += binTwo[i];
 		}
 		double result = (productbin1 + sumbin2)/2;
 		return result;
-	}
-	
-	/**
-	 * Returns whether the bins in this object are valid
-	 * @return
-	 */
-	public boolean areBinsValid(){
-		return false;
 	}
 	
 	/**
@@ -193,9 +229,17 @@ public class Bins implements Comparable<Bins> {
 		else if(fitness0 < fitness1){
 			return -1;
 		}
+		// if fitnesses are equal then the oldest the sequence wins
+		else if(fitness0 == fitness1){
+			if(this.generation < bin1.generation){
+				return 1;
+			}
+			else if(this.generation > bin1.generation){
+				return -1;
+			} 
+		}
 		
 		return 0;
-		
 	}
 	public int getGeneration(){
 		return this.generation;
