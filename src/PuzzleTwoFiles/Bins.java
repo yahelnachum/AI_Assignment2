@@ -119,7 +119,7 @@ public class Bins implements Comparable<Bins> {
 			return score;
 		}
 		else {
-			return Math.abs(score);
+			return 1/Math.abs(score);
 		}
 		
 	}
