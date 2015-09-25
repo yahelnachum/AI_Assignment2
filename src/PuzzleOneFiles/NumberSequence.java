@@ -60,8 +60,8 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		int sum = 0;
 		
 		for(int i = 0; i < sequence.length; i++){
-			if(sequence[i]){
-				sum += possibleNumbers[i+1];
+			if(sequence[i] == true){
+				sum += possibleNumbers[i];
 			}
 		}
 		
@@ -90,7 +90,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 		
 		/* if sequence is bigger than possibleNumbers 
 		 * then it is not possible that sequence is a valid */
-		if(sequence.length > possibleNumbers.length-1){
+		if(sequence.length > possibleNumbers.length){
 			return false;
 		}
 		/*
@@ -177,7 +177,7 @@ public class NumberSequence implements Comparable<NumberSequence> {
 	 * @param sequenceIndex The index to change.
 	 */
 	public void changeInSequence(int sequenceIndex){
-		sequence[sequenceIndex] = !sequence[sequenceIndex];
+		this.sequence[sequenceIndex] = !this.sequence[sequenceIndex];
 	}
 	
 	/**
