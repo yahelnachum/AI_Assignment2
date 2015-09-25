@@ -66,7 +66,7 @@ public class PuzzleTwo {
 				, "Worst Fit Generation");
 		// keep culling and reproducing until time is up
 		while(!clock.overTargetTime()){
-			if(generation % 100 == 0){
+			if(generation % 5000 == 0){
 				Collections.sort(population);
 				Bins mostFit = population.get(POPULATION_SIZE-1);
 				Bins medianFit = population.get((int)(POPULATION_SIZE / 2) - 1);
