@@ -132,7 +132,7 @@ public class Bins implements Comparable<Bins> {
 		}
 		else {
 			
-			return score - isValidBins();
+			return score - isValidBins() * 100;
 		}
 		
 	}
