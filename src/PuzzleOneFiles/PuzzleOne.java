@@ -134,12 +134,12 @@ public class PuzzleOne {
 		while (!clock.overTargetTime()) {
 			// every few generations print out most fit, median fit, and worst
 			// fit
-			if (generation % 2000 == 0) {
+			if (generation % 200 == 0) {
 				Collections.sort(population);
 
-				NumberSequence mostFit = population.get(POPULATION_SIZE - 1);
+				NumberSequence mostFit = population.get(population.size()-1);
 				NumberSequence medianFit = population
-						.get((int) (POPULATION_SIZE / 2) - 1);
+						.get((int) (population.size() / 2) - 1);
 				NumberSequence worstFit = population.get(0);
 				System.out.printf("%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\n\n",
 						generation, mostFit.getFitness(),
@@ -148,7 +148,7 @@ public class PuzzleOne {
 						worstFit.getGeneration());
 			}
 
-			// remove a portion of the population
+			// remove a portion of the population - comment out for no culling
 			cullPopulation();
 
 			// reproduce with the fittest more likely being parents
@@ -157,9 +157,9 @@ public class PuzzleOne {
 			generation++;
 		}
 		Collections.sort(population);
-		NumberSequence mostFit1 = population.get(POPULATION_SIZE - 1);
+		NumberSequence mostFit1 = population.get(population.size() - 1);
 		NumberSequence medianFit = population
-				.get((int) (POPULATION_SIZE / 2) - 1);
+				.get((int) (population.size() / 2) - 1);
 		NumberSequence worstFit = population.get(0);
 		System.out.printf("%23s\t%23s\t%23s\t%23s\t%23s\t%23s\t%23s\n",
 				generation, mostFit1.getFitness(), mostFit1.getGeneration(),
@@ -233,6 +233,9 @@ public class PuzzleOne {
 
 		// sort the population by the fitness function from low to high
 		Collections.sort(population);
+		
+		//no elitism
+		//Collections.shuffle(population, new Random());
 
 		// remove 10% of the weakest part of the population
 		for (int i = 0; i < (int) (POPULATION_SIZE * POPULATION_ACTION_PERCENT); i++) {
@@ -248,6 +251,8 @@ public class PuzzleOne {
 		// sort the population from strongest to weakest
 		Collections.sort(population);
 		Collections.reverse(population);
+		//no elitism
+		//Collections.shuffle(population, new Random());
 
 		for (int i = 0; i < (int) (POPULATION_SIZE * POPULATION_ACTION_PERCENT); i += 2) {
 
