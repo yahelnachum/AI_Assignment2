@@ -88,6 +88,27 @@ public class PuzzleTwo {
 			generation++;
 		}
 		
+		// print out information about most fit
+		Collections.sort(population);
+		Collections.reverse(population);
+		Bins mostFit = population.get(0);
+
+		System.out.printf("\n\nBest in population is\n");
+		System.out.printf("Bin1: \n");
+		for(int i = 0; i < mostFit.getBinOne().length; i++){
+			System.out.printf("%3.3f, ", mostFit.getBinOne()[i]);
+		}
+		System.out.printf("\nBin2: \n");
+		for(int i = 0; i < mostFit.getBinTwo().length; i++){
+			System.out.printf("%3.3f, ", mostFit.getBinTwo()[i]);
+		}
+		System.out.printf("\nBin3: \n");
+		for(int i = 0; i < mostFit.getBinThree().length; i++){
+			System.out.printf("%3.3f, ", mostFit.getBinThree()[i]);
+		}
+
+		System.out.printf("\nFitness: %3.3f\n", mostFit.getFitness());
+		System.out.printf("Score: %3.3f\n", mostFit.getScore());
 	}
 	
 	/**

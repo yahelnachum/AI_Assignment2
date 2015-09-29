@@ -131,6 +131,21 @@ public class PuzzleThree {
 			generation++;
 		}
 
+		
+		// print out information about most fit
+		Collections.sort(population);
+		Collections.reverse(population);
+		Building mostFit = population.get(0);
+
+		System.out.printf("\n\nBest in population is\n");
+		System.out.printf("Sequence: \n");
+		for(int i = 0; i < mostFit.getList().length; i++){
+			System.out.printf("\t%s\n", mostFit.getList()[i].toString());
+
+		}
+
+		System.out.printf("\nFitness: %d\n", mostFit.getFitness());
+		System.out.printf("Score: %d\n", mostFit.getScore());
 	}
 	
 	/**

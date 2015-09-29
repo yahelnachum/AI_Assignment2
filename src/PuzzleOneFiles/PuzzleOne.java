@@ -146,6 +146,24 @@ public class PuzzleOne {
 			
 			generation++;
 		}
+		
+		// print out information about most fit
+		Collections.sort(population);
+		Collections.reverse(population);
+		NumberSequence mostFit = population.get(0);
+		int sum = 0;
+		System.out.printf("\n\nBest in population is\n");
+		System.out.printf("Sequence: \n");
+		for(int i = 0; i < mostFit.getSequence().length; i++){
+			System.out.printf("%d, ", mostFit.getSequence()[i]);
+			sum += mostFit.getSequence()[i];
+		}
+		if(sum > goal){
+			sum = 0;
+		}
+		System.out.printf("\nFitness: %d\n", mostFit.getFitness());
+		System.out.printf("Goal: %d\n", goal);
+		System.out.printf("Score: %d\n", sum);
 	}
 	
 	/**
