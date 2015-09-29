@@ -72,8 +72,6 @@ Implementation Details:
 							track of , culls, reproduces, and mutates the population 
 							each generation.
 	
-	Variables	
-	
 How to build the program:	To build the program you must take the following steps on the command line: 
 							"(path to javac.exe)\javac.exe" -g src\*
 							cd src
@@ -115,11 +113,40 @@ Additional Files:
 
 Results:					
 							"puzzle1_input_file.txt" results from 5 different runs:
-									************ add in results here ************
+								Using args: 1 "puzzle1_input_file.txt" 1
+								
+								Best in population is
+								Sequence: 
+								42, 23, 14, 21, 
+								Fitness: 100
+								Goal: 100
+								Score: 100
+
 							"puzzle2_input_file.txt" results from 5 different runs:
-									************ add in results here ************
+								Using args: 2 "puzzle2_input_file.txt" 1
+								
+								Best in population is
+								Bin1: 
+								9.200, 9.200, -9.100, 9.200, -9.100, 9.200, -9.100, 9.200, 9.200, -9.100, 
+								Bin2: 
+								-5.900, 3.300, 8.900, 2.300, 6.500, 8.300, -6.500, 6.600, -8.800, 6.900, 
+								Bin3: 
+								-9.100, 3.200, -5.900, -3.500, 6.600, 4.300, -3.400, 6.900, -6.700, 8.300, 
+								Fitness: 2079036739.266
+								Score: 2079038539.266
+
 							"puzzle3_input_file.txt" results from 5 different runs:
-									************ add in results here ************
+								Using args: 3 "puzzle3_input_file.txt" 1
+								
+								Best in population is
+								Sequence: 
+									Door, 5, 3, 2
+									Wall, 5, 5, 1
+									Wall, 4, 3, 1
+									Lookout, 3, 1, 2
+								
+								Fitness: 210
+								Score: 20
 
 Test Procedures:			
 							Testing included looking at the population every few 
@@ -140,8 +167,6 @@ Performance Evaluation:
 							because only 100 objects are kept every generation and the 
 							objects consist of very basic information like numbers and 
 							string types.
-	
-	User Interface			
 							
 	
 References:					Class book, class slides, stackoverflow partially for some of 
